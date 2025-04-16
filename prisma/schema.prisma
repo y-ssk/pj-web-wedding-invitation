@@ -6,12 +6,53 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+        
+
+model Group {
+  id           Int           @id @default(autoincrement())
+  postcode     String?
+  address      String?
+  participants Participant[] // グループに属する全員（代表含む）
+
+  // 監査項目
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  createdBy    String?
+  updatedBy    String?
+
+  @@map("groups")
 }
 
+model Participant {
+  id               Int       @id @default(autoincrement())
+  groupId          Int       // Group との多対1関係
+  group            Group     @relation(fields: [groupId], references: [id])
+  isRepresentative Boolean   @default(false) // ← これを追加
 
+  // 基本情報
+  firstName        String
+  familyName       String
+  firstNameKana    String
+  familyNameKana   String
+  sex              Int
+  age              Int
+  isJoin           Boolean
+  message          String?
+  guestCode        Int
+  allergyComment   String?
+
+  // 監査項目
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  createdBy        String?
+  updatedBy        String?
+
+  @@map("participants")
+}
