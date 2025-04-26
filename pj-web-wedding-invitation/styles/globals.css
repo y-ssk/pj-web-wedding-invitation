@@ -1,8 +1,13 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-jp: 'Noto Serif JP', serif;
+  --font-en: 'Playfair Display', serif;
+  --font-fancy: 'Great Vibes', cursive;
 }
 
 @theme inline {
@@ -23,4 +28,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.font-fancy {
+  font-family: var(--font-fancy), cursive;
+}
+
+.font-jp {
+  font-family: var(--font-jp);
+}
+
+.font-en {
+  font-family: var(--font-en);
 }
