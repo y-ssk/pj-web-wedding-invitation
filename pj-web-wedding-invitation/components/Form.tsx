@@ -25,7 +25,6 @@ export default function Form() {
     ],
   });
 
-  // ▼ パターンB: 分けた住所
   const [prefecture, setPrefecture] = useState('');
   const [city, setCity] = useState('');
   const [town, setTown] = useState('');
